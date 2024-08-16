@@ -18,7 +18,5 @@ namespace Atm_Application.UI
             Console.WriteLine("Note: This machine will accept and validate a physical atm card");
             Utility.PressEnterToContinue();
         }
-       
-
-    }
+    } 
 }

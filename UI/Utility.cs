@@ -17,5 +17,19 @@ namespace Atm_Application.UI
             Console.WriteLine($"Please enter {prompt}");
             return Console.ReadLine();
         }
+        public static void PrintMessage(string message, bool success=true)
+        {
+            if (success)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(message);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(message);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
     }
 }
