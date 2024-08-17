@@ -17,6 +17,8 @@ namespace Atm_Application.Domain.Entities
         public int TotalLogin { get; set; }
         public bool IsLocked { get; set; }
         public int CardPin { get; set; }
+        public UserAccount() { }
+            
         public UserAccount(string fullName, long acc_number, decimal acc_balance, long card_number, int card_pin, int total_login, bool is_locked = false)
         {
             Counter++;
