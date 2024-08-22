@@ -1,5 +1,6 @@
 ﻿using Atm_Application.Domain.Entities;
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,5 +20,6 @@ namespace Atm_Application.App
                 }
             }
         }
+        
     }
 }

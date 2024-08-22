@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
@@ -90,6 +91,14 @@ namespace Atm_Application.UI
                 Console.WriteLine(message);
                 Console.ForegroundColor = ConsoleColor.White;
             }
+        }
+        public static void DisplayBalance(decimal amount)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            var cultureInfo = (CultureInfo)CultureInfo.GetCultureInfo("en-NZ").Clone();
+            string formatedAmmount = String.Format(cultureInfo, "{0:C}", amount);
+            Console.WriteLine($"Your account balance is : {formatedAmmount}");
+
         }
     }
 }

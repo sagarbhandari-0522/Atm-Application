@@ -14,8 +14,13 @@ namespace Atm_Application.App
         {
             AppScreen.WelcomeMessage();
             AtmApplication atmAPP = new AtmApplication();
-            UserAccount currentUser= atmAPP.GetUserCardNumberAndCardPin();
-            AppScreen.WelcomeUser(currentUser.FullName);
+            atmAPP.currentUser = atmAPP.GetUserCardNumberAndCardPin();
+            AppScreen.WelcomeUser(atmAPP.currentUser.FullName);
+            AppScreen.DisplayAppMenu();
+            atmAPP.getUserInput();
+
+
+
 
 
         }

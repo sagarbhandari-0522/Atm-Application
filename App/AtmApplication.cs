@@ -3,12 +3,13 @@
 using System;
 using Atm_Application.UI;
 using Atm_Application.Domain.Entities;
+using Atm_Application.Domain.Enums;
 namespace Atm_Application
 {
     class AtmApplication
     {
         public List<UserAccount> Users;
-        private UserAccount currentUser;
+        public UserAccount currentUser;
         public AtmApplication()
         {
             Users = new List<UserAccount>
@@ -17,6 +18,7 @@ namespace Atm_Application
                 new UserAccount("Sandhya Bhandari", 12344321, 12345.67m,12344321, 12341234, 0),
                 new UserAccount("Sandhya Pandey", 1234554321, 12345.67m,1234554321, 1234512345, 0)
             };
+            currentUser = new UserAccount();
         }
         public UserAccount GetUserCardNumberAndCardPin()
         {
@@ -66,16 +68,50 @@ namespace Atm_Application
                     else
                     {
                         Utility.TerminationOfProgram($"Your account is previously locked so that please Visit near by bank counter");
-
+                        
                     }
                 }
 
 
             }
             return false;
-
-               
         }
+
+        public void getUserInput()
+        {
+            
+            int option = Validator.Converter<int>("Enter options [1-6]");
+            switch(option)
+            {
+                case (int)AtmOptions.AccountBalance:
+                    Utility.DisplayBalance(this.currentUser.AccountBalance);
+                    break;
+                case (int)AtmOptions.Transfer:
+                    Console.WriteLine("Perform Transfer");
+                    break;
+                case (int)AtmOptions.Deposit:
+                    Console.WriteLine("Perform deposit");
+                    break;
+                case (int)AtmOptions.Transactions:
+                    Console.WriteLine("Perform Transactions");
+                    break ;
+                case (int)AtmOptions.Withdrawal:
+                    Console.WriteLine("Perform Withdrawl");
+                    break;
+                case (int)AtmOptions.Logout:
+                    AppScreen.LogOut();
+                    break;
+                default:
+                    Utility.PrintMessage("You have enter wrong option, Please select correct one", false);
+                    getUserInput();
+                    break;
+            }
+            
+
+        }
+        
+
+
     }
 
 
