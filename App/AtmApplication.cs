@@ -4,6 +4,7 @@ using System;
 using Atm_Application.UI;
 using Atm_Application.Domain.Entities;
 using Atm_Application.Domain.Enums;
+using Atm_Application.App;
 namespace Atm_Application
 {
     class AtmApplication
@@ -14,7 +15,7 @@ namespace Atm_Application
         {
             Users = new List<UserAccount>
             {
-                new UserAccount("Sagar Bhandari", 123321, 12345.67m,123321, 123123,  0),
+                new UserAccount("Sagar Bhandari", 123321, 1000.00m,123321, 123123,  0),
                 new UserAccount("Sandhya Bhandari", 12344321, 12345.67m,12344321, 12341234, 0),
                 new UserAccount("Sandhya Pandey", 1234554321, 12345.67m,1234554321, 1234512345, 0)
             };
@@ -48,7 +49,7 @@ namespace Atm_Application
                 }
                 
             }
-            Atm_Application.App.Utility.BlockAccount(currentUser.CardNumber,this.Users);
+            AppUtility.BlockAccount(currentUser.CardNumber,this.Users);
             Utility.TerminationOfProgram("You have attempted 3 tries your account is locked");
             return currentUser;
             
@@ -86,11 +87,11 @@ namespace Atm_Application
                 case (int)AtmOptions.AccountBalance:
                     Utility.DisplayBalance(this.currentUser.AccountBalance);
                     break;
+                case (int)AtmOptions.Deposit:
+                    AppUtility.DepositAmount(this);
+                    break;
                 case (int)AtmOptions.Transfer:
                     Console.WriteLine("Perform Transfer");
-                    break;
-                case (int)AtmOptions.Deposit:
-                    Console.WriteLine("Perform deposit");
                     break;
                 case (int)AtmOptions.Transactions:
                     Console.WriteLine("Perform Transactions");

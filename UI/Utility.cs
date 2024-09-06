@@ -12,6 +12,7 @@ namespace Atm_Application.UI
 {
     public static class Utility
     {
+        public static CultureInfo Culture = new CultureInfo("en-US");
         public static string ChangeSecretToAstric(string prompt)
         {
             PrintMessage(prompt, true);
@@ -96,9 +97,20 @@ namespace Atm_Application.UI
         {
             Console.OutputEncoding = Encoding.UTF8;
             var cultureInfo = (CultureInfo)CultureInfo.GetCultureInfo("en-NZ").Clone();
-            string formatedAmmount = String.Format(cultureInfo, "{0:C}", amount);
-            Console.WriteLine($"Your account balance is : {formatedAmmount}");
+            string currencyCode = CurrencyCode();
+            Console.WriteLine($"Your account balance is : {currencyCode}{amount}");
 
         }
+        public static string CurrencyCode()
+        {
+           return (Culture.NumberFormat.CurrencySymbol);
+        }
+
+        public static bool MakeConfirmation(string prompt)
+        {
+            char confiramtionInput = Validator.Converter<char>(prompt);
+            return (confiramtionInput == 'y' || confiramtionInput == 'Y' || confiramtionInput == '1');
+        }
+
     }
 }

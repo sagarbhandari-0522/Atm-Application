@@ -25,7 +25,6 @@ namespace Atm_Application.UI
             UserAccount inputUser = new UserAccount();
             inputUser.CardNumber = Validator.Converter<long>("Enter Card Number");
             inputUser.CardPin =Convert.ToInt32(Utility.ChangeSecretToAstric("Enter Card Pin"));
-
             return inputUser;
         }
         public static void LoginProcess()

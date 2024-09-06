@@ -18,11 +18,6 @@ namespace Atm_Application.App
             AppScreen.WelcomeUser(atmAPP.currentUser.FullName);
             AppScreen.DisplayAppMenu();
             atmAPP.getUserInput();
-
-
-
-
-
         }
     }
 }
