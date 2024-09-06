@@ -39,7 +39,16 @@ namespace Atm_Application.UI
         }
         public static void PressEnterToContinue()
         {
-            Console.WriteLine("Thankyou");
+            Console.WriteLine("Press Enter to Continue and any other key to exit");
+            var key = Console.ReadKey(intercept: true);
+            if (key.Key == ConsoleKey.Enter)
+            {
+                Console.Clear();
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
         }
 
         public static string readCardPin()
@@ -110,6 +119,16 @@ namespace Atm_Application.UI
         {
             char confiramtionInput = Validator.Converter<char>(prompt);
             return (confiramtionInput == 'y' || confiramtionInput == 'Y' || confiramtionInput == '1');
+        }
+
+        public static void DisplayWithDrawalMenu()
+        {
+            Console.WriteLine($": 1. {Utility.CurrencyCode()} 500       5. {Utility.CurrencyCode()} 2500 ");
+            Console.WriteLine($": 2. {Utility.CurrencyCode()} 1000      6. {Utility.CurrencyCode()} 5000 ");
+            Console.WriteLine($": 3. {Utility.CurrencyCode()} 1500      7. {Utility.CurrencyCode()} 1000 ");
+            Console.WriteLine($": 4. {Utility.CurrencyCode()} 2000      8. {Utility.CurrencyCode()} 20000 ");
+            Console.WriteLine(":0. Other");
+
         }
 
     }

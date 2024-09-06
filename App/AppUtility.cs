@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Atm_Application.UI;
 using System.Transactions;
 using System.Security.Principal;
+using System.Runtime.CompilerServices;
+using System.Diagnostics;
 
 namespace Atm_Application.App
 {
@@ -25,6 +27,7 @@ namespace Atm_Application.App
                 }
             }
         }
+       
 
         internal static void DepositAmount(AtmApplication atmApp)
         {
@@ -87,6 +90,129 @@ namespace Atm_Application.App
 
             }
         }
+        internal static void WithDrawal(AtmApplication atmApp)
+        {
+            int counter = 0;
+            while (counter<Max_Retry)
+            {
+                counter++;
+                Utility.DisplayWithDrawalMenu();
+                int withdrawal_amount=GetWithDrawalAmount();
+                decimal account_balance = atmApp.currentUser.AccountBalance;
+                
+                if (withdrawal_amount == 0)
+                {
+                    HandleInvalidWithdrawalOptions();
+                }
+                else
+                {
+                    bool isSufficient = isBalanceSufficient(account_balance, withdrawal_amount);
+                    if (isSufficient)
+                    {
+                        atmApp.currentUser.AccountBalance -= withdrawal_amount;
+                        Utility.PrintMessage("Withdrawal Successfull", true);
+                        Utility.PrintMessage("Generaing Summary");
+                        AppScreen.AstricAnimation();
+                        Console.Clear();
+                        GenerateWithdrawalSummary(withdrawal_amount,atmApp.currentUser.AccountBalance);
+                        return;
+                    }
+                    else
+                    {
+                        Utility.PrintMessage("You have insuffieicnt balance!!!\n Retry", false);
+                    }
+                }
+            }
+            Utility.PrintMessage("Maximum retry limit reached. Terminating process", false);
+            AppScreen.AstricAnimation();
+            Environment.Exit(0);
+        }
+
+        public static bool isBalanceSufficient(decimal account_balance, decimal withdrawal_ammount)
+        {
+            return account_balance >= withdrawal_ammount;
+
+        }
+        public static void HandleInvalidWithdrawalOptions()
+        {
+            Utility.PrintMessage("Please select the valid options [0-8]!!!", false);
+            Utility.PressEnterToContinue();
+          
+        }
+        public static void HandleInsufficientBalance()
+        {
+            Utility.PrintMessage("You have insuffieicnt balance!!!\n Retry", false);
+            Utility.PressEnterToContinue();
+
+        }
+
+        public static int GetWithDrawalAmount()
+        {
+            int option = Validator.Converter<int>("Enter Option");
+            int amount;
+            switch(option)
+            {
+                case 1:
+                    amount = 500;
+                    break;
+                case 2:
+                    amount = 1000;
+                    break;
+                case 3:
+                    amount = 1500;
+                    break;
+                case 4:
+                    amount = 2000;
+                    break;
+                case 5:
+                    amount = 2500;
+                    break;
+                case 6:
+                    amount=5000;
+                    break;
+                case 7:
+                    amount = 10000;
+                    break;
+                case 8:
+                   amount=20000;
+                    break;
+                case 0:
+                    amount = GetUserInputWithDrawalAmount();
+                    break;
+                default:
+                    amount = 0;
+                    break;
+            }
+            return amount;
+        }
+        public static int GetUserInputWithDrawalAmount()
+        {
+            int counter = 0;
+            while (true)
+            {
+                counter++;
+                int amount = Validator.Converter<int>("amount to be withdrawal");
+                if (amount % 500 == 0 && amount > 0)
+                {
+                    return amount;
+                }
+
+                else if (counter > Max_Retry)
+                {
+                    Utility.PrintMessage("Sorry you have multiple invalid input \n Terminating the program");
+                    AppScreen.AstricAnimation();
+                    Environment.Exit(0);
+                }
+                Utility.PrintMessage($"Please enter valid input\n Multiple of 500 Thank You! \n{Max_Retry - counter} times remaining",false);
+            }
+
+        }
+
+        public static void GenerateWithdrawalSummary(int amount, decimal account_balance )
+        {
+            Utility.PrintMessage($"You have successfully withdrawan {amount} \n Your remaining balance is {account_balance}\nThank You for using our System.",true);
+        }
+
         
         
     }

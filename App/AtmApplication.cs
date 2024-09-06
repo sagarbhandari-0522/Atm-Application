@@ -90,15 +90,16 @@ namespace Atm_Application
                 case (int)AtmOptions.Deposit:
                     AppUtility.DepositAmount(this);
                     break;
+                case (int)AtmOptions.Withdrawal:
+                    AppUtility.WithDrawal(this);
+                    break;
                 case (int)AtmOptions.Transfer:
                     Console.WriteLine("Perform Transfer");
                     break;
                 case (int)AtmOptions.Transactions:
                     Console.WriteLine("Perform Transactions");
                     break ;
-                case (int)AtmOptions.Withdrawal:
-                    Console.WriteLine("Perform Withdrawl");
-                    break;
+               
                 case (int)AtmOptions.Logout:
                     AppScreen.LogOut();
                     break;
